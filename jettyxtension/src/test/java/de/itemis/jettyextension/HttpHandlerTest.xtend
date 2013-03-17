@@ -1,7 +1,7 @@
-package org.example.jettyextension
+package de.itemis.jettyextension
 
+import de.itemis.jettyxtension.HttpHandler
 import org.eclipse.xtend.core.compiler.batch.XtendCompilerTester
-import org.example.jettyxtension.HttpHandler
 import org.junit.Test
 
 class HttpHandlerTest {

@@ -1,4 +1,4 @@
-package org.example.jettyxtension
+package de.itemis.jettyxtension
 
 import java.io.IOException
 import java.util.List
