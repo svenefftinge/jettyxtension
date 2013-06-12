@@ -16,7 +16,7 @@ import org.eclipse.xtend.lib.macro.declaration.MutableClassDeclaration
 import org.eclipse.xtend.lib.macro.declaration.MutableMethodDeclaration
 import org.eclipse.xtend.lib.macro.declaration.Type
 
-@Active(typeof(HttpHandlerProcessor))
+@Active(HttpHandlerProcessor)
 annotation HttpHandler {
 }
 
@@ -27,26 +27,26 @@ annotation Get {
 class HttpHandlerProcessor implements TransformationParticipant<MutableClassDeclaration> {
 	
 	override doTransform(List<? extends MutableClassDeclaration> annotatedTargetElements, extension TransformationContext context) {
-		val httpGet = typeof(Get).findTypeGlobally
+		val httpGet = findTypeGlobally(Get)
 		for (clazz : annotatedTargetElements) {
-			clazz.extendedClass = typeof(AbstractHandler).newTypeReference
+			clazz.extendedClass = newTypeReference(AbstractHandler)
 			val annotatedMethods = clazz.declaredMethods.filter[findAnnotation(httpGet)?.getValue('value')!=null]
 			
 			// create the handle method
 			clazz.addMethod('handle') [
 				returnType = primitiveVoid
 				addParameter('target', string)
-				addParameter('baseRequest', typeof(Request).newTypeReference) 
-				addParameter('request', typeof(HttpServletRequest).newTypeReference) 
-				addParameter('response', typeof(HttpServletResponse).newTypeReference)
+				addParameter('baseRequest', newTypeReference(Request)) 
+				addParameter('request', newTypeReference(HttpServletRequest)) 
+				addParameter('response', newTypeReference(HttpServletResponse))
 				
-				setExceptions(typeof(IOException).newTypeReference, typeof(ServletException).newTypeReference)
+				setExceptions(newTypeReference(IOException), newTypeReference(ServletException))
 				
 				body = ['''
 					«FOR m : annotatedMethods»
 						{
-							«toJavaCode(typeof(Matcher).newTypeReference)» matcher = 
-								«toJavaCode(typeof(Pattern).newTypeReference)».compile("«m.getPattern(httpGet)»").matcher(target);
+							«toJavaCode(newTypeReference(Matcher))» matcher = 
+								«toJavaCode(newTypeReference(Pattern))».compile("«m.getPattern(httpGet)»").matcher(target);
 							if (matcher.matches()) {
 								«var i = 0»
 								«FOR v : m.getVariables(httpGet)»
@@ -68,9 +68,9 @@ class HttpHandlerProcessor implements TransformationParticipant<MutableClassDecl
 					m.addParameter(variable, string)
 				}
 				m.addParameter('target', string)
-				m.addParameter('baseRequest', typeof(Request).newTypeReference) 
-				m.addParameter('request', typeof(HttpServletRequest).newTypeReference) 
-				m.addParameter('response', typeof(HttpServletResponse).newTypeReference)
+				m.addParameter('baseRequest', newTypeReference(Request)) 
+				m.addParameter('request', newTypeReference(HttpServletRequest)) 
+				m.addParameter('response', newTypeReference(HttpServletResponse))
 			}
 		}
 	}
@@ -99,4 +99,5 @@ class HttpHandlerProcessor implements TransformationParticipant<MutableClassDecl
 			builder.append(pattern.substring(i, pattern.length-1))
 		return builder.toString -> variables
 	}
+	
 }

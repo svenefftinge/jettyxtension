@@ -1,8 +1,8 @@
 package org.webserver
 
 import org.eclipse.jetty.server.Server
-import org.example.jettyxtension.HttpHandler
-import org.example.jettyxtension.Get
+import de.itemis.jettyxtension.HttpHandler
+import de.itemis.jettyxtension.Get
 
 @HttpHandler class HelloXtend {
 

@@ -6,12 +6,12 @@ import org.junit.Test
 
 class HttpHandlerTest {
 	
-	extension XtendCompilerTester compilerTester = XtendCompilerTester::newXtendCompilerTester(typeof(HttpHandler))
+	extension XtendCompilerTester compilerTester = XtendCompilerTester.newXtendCompilerTester(HttpHandler)
 	
 	@Test def void testSimple() {
 		'''
-			import org.example.jettyxtension.HttpHandler
-			import org.example.jettyxtension.Get
+			import de.itemis.jettyxtension.HttpHandler
+			import de.itemis.jettyxtension.Get
 			
 			@HttpHandler class MyHandler {
 				@Get('foo/:bar') def doStuff() {
@@ -19,6 +19,8 @@ class HttpHandlerTest {
 				}
 			}
 		'''.assertCompilesTo('''
+			import de.itemis.jettyxtension.Get;
+			import de.itemis.jettyxtension.HttpHandler;
 			import java.io.IOException;
 			import java.util.regex.Matcher;
 			import java.util.regex.Pattern;
@@ -27,8 +29,6 @@ class HttpHandlerTest {
 			import javax.servlet.http.HttpServletResponse;
 			import org.eclipse.jetty.server.Request;
 			import org.eclipse.jetty.server.handler.AbstractHandler;
-			import org.example.jettyxtension.Get;
-			import org.example.jettyxtension.HttpHandler;
 			
 			@HttpHandler
 			@SuppressWarnings("all")
