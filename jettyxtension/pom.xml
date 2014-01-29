@@ -22,7 +22,7 @@
 
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <xtend.version>2.5.0-SNAPSHOT</xtend.version>
+        <xtend.version>2.5.1-SNAPSHOT</xtend.version>
 	</properties>
 
 	<build>
@@ -62,7 +62,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtend</groupId>
-			<artifactId>org.eclipse.xtend.standalone</artifactId>
+			<artifactId>org.eclipse.xtend.core</artifactId>
 			<version>${xtend.version}</version>
 			<scope>test</scope>
 		</dependency>

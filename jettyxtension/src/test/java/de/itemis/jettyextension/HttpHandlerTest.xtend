@@ -36,8 +36,7 @@ class HttpHandlerTest {
 			  @Get("foo/:bar")
 			  public String doStuff(final String bar, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
 			    String _string = request.toString();
-			    String _plus = ("hello " + _string);
-			    return _plus;
+			    return ("hello " + _string);
 			  }
 			  
 			  public void handle(final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
@@ -52,7 +51,6 @@ class HttpHandlerTest {
 			    	    baseRequest.setHandled(true);
 			    	}
 			    }
-			    
 			  }
 			}
 		''')
